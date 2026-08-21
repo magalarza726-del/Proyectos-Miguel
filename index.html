@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f8fbff" />
   <title>Project Randomizer</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
   <div class="app-shell">
@@ -54,6 +55,10 @@
             <div id="projectList" class="stack-list project-list" role="listbox" aria-label="Lista de proyectos"></div>
 
             <button id="focusNewProjectBtn" class="button button-outline full"><span>⊕</span> Agregar proyecto</button>
+            <div class="project-admin-actions">
+              <button id="editProjectBtn" class="button button-secondary full compact"><span>✎</span> Editar proyecto</button>
+              <button id="manageMissionsBtn" class="button button-secondary full compact"><span>☷</span> Administrar misiones</button>
+            </div>
             <button id="deleteProjectBtn" class="button button-danger full"><span>▣</span> Eliminar proyecto</button>
           </section>
 
@@ -106,7 +111,7 @@
             <div class="db-icon">▤</div>
             <div>
               <strong>Memoria persistente activada</strong>
-              <p>Los proyectos y categorías se guardan automáticamente</p>
+              <p>Los proyectos, categorías y misiones se guardan automáticamente</p>
             </div>
             <div class="check">✓</div>
           </div>
@@ -115,7 +120,53 @@
     </main>
   </div>
 
+  <div id="editProjectModal" class="modal-backdrop" hidden>
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="editProjectTitle">
+      <div class="modal-header">
+        <div>
+          <p class="modal-kicker">Proyecto seleccionado</p>
+          <h2 id="editProjectTitle">Editar proyecto</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal="editProjectModal" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <label class="field-label" for="editProjectName">Nombre del proyecto</label>
+        <input id="editProjectName" class="text-input" type="text" maxlength="70" />
+        <label class="field-label" for="editProjectCategory">Categoría</label>
+        <select id="editProjectCategory" class="select-input"></select>
+        <p class="modal-help">Cambiar la categoría moverá el proyecto automáticamente a la nueva sección.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button button-secondary" data-close-modal="editProjectModal">Cancelar</button>
+        <button id="saveProjectEditBtn" type="button" class="button button-primary">Guardar cambios</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="missionsModal" class="modal-backdrop" hidden>
+    <section class="modal-card modal-card-wide" role="dialog" aria-modal="true" aria-labelledby="missionsTitle">
+      <div class="modal-header">
+        <div>
+          <p class="modal-kicker">Lista de tareas sorteables</p>
+          <h2 id="missionsTitle">Administrar misiones</h2>
+          <p id="missionsProjectName" class="modal-subtitle"></p>
+        </div>
+        <button class="modal-close" type="button" data-close-modal="missionsModal" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="missionEditorList" class="mission-editor-list"></div>
+        <button id="addMissionRowBtn" type="button" class="button button-outline full"><span>⊕</span> Añadir misión</button>
+        <p class="modal-help">El orden también se guarda. “Otra misión” elegirá únicamente entre las misiones de esta lista.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button button-secondary" data-close-modal="missionsModal">Cancelar</button>
+        <button id="saveMissionsBtn" type="button" class="button button-primary">Guardar misiones</button>
+      </div>
+    </section>
+  </div>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>
