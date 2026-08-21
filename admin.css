@@ -1,0 +1,164 @@
+/* Project editing and mission administration */
+.project-admin-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.project-admin-actions .button {
+  min-width: 0;
+  min-height: 38px;
+  padding-inline: 10px;
+  font-size: 13px;
+}
+.project-admin-actions .button:disabled,
+.mini-action:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+  transform: none !important;
+}
+
+body.modal-open { overflow: hidden; }
+.modal-backdrop[hidden] { display: none; }
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(12, 31, 56, .42);
+  backdrop-filter: blur(5px);
+  animation: modal-fade .16s ease-out;
+}
+.modal-card {
+  width: min(560px, 100%);
+  max-height: min(760px, calc(100vh - 40px));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #d6e0ec;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 28px 70px rgba(14, 39, 75, .28);
+  animation: modal-pop .18s ease-out;
+}
+.modal-card-wide { width: min(760px, 100%); }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 21px 22px 16px;
+  border-bottom: 1px solid #dbe4ef;
+  background: linear-gradient(180deg, #fbfdff, #f7faff);
+}
+.modal-header h2 { margin: 2px 0 0; font-size: 24px; color: #0d294c; }
+.modal-kicker {
+  margin: 0;
+  color: #1261de;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.modal-subtitle { margin: 5px 0 0; color: #5a6b82; font-size: 14px; }
+.modal-close {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9e2ed;
+  border-radius: 10px;
+  background: #fff;
+  color: #41546d;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+.modal-close:hover { background: #f2f7fd; color: #0c55ca; }
+.modal-body { padding: 20px 22px; overflow: auto; }
+.modal-body .field-label:first-child { margin-top: 0; }
+.modal-help {
+  margin: 11px 0 0;
+  color: #6a788c;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid #dbe4ef;
+  background: #fbfcfe;
+}
+.modal-footer .button { min-width: 145px; min-height: 44px; font-size: 15px; }
+
+.mission-editor-list {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.mission-editor-empty {
+  padding: 24px 16px;
+  border: 1px dashed #bfd0e3;
+  border-radius: 12px;
+  background: #f8fbff;
+  color: #6a788c;
+  text-align: center;
+}
+.mission-editor-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 7px;
+  border: 1px solid #dce5ef;
+  border-radius: 11px;
+  background: #fbfdff;
+}
+.mission-number {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #eaf3ff;
+  color: #145fcf;
+  font-size: 12px;
+  font-weight: 800;
+}
+.mission-edit-input { margin: 0 !important; min-width: 0; }
+.mission-row-actions { display: flex; gap: 5px; }
+.mini-action {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ccd9e8;
+  border-radius: 8px;
+  background: #fff;
+  color: #28517f;
+  font-weight: 800;
+  cursor: pointer;
+}
+.mini-action:hover:not(:disabled) { border-color: #91b9ee; background: #edf5ff; color: #0b5bd5; }
+.mini-action.danger { color: #d52d2d; }
+.mini-action.danger:hover { border-color: #f0aaaa; background: #fff4f4; }
+
+@keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-pop { from { opacity: 0; transform: translateY(8px) scale(.985); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
+  .project-admin-actions { grid-template-columns: 1fr; }
+  .modal-backdrop { padding: 8px; }
+  .modal-card { max-height: calc(100vh - 16px); border-radius: 14px; }
+  .modal-header, .modal-body { padding-inline: 15px; }
+  .modal-footer { padding: 12px 15px 14px; }
+  .modal-footer .button { min-width: 0; flex: 1; }
+  .mission-editor-row { grid-template-columns: 28px minmax(0, 1fr); }
+  .mission-row-actions { grid-column: 2; justify-content: flex-end; }
+}
