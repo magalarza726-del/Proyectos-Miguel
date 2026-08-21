@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f8fbff" />
+  <title>Project Randomizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="window-bar" aria-label="Barra superior">
+      <div class="window-title"><span class="mini-logo">🚀</span><span>Project Randomizer</span></div>
+      <div class="window-actions" aria-hidden="true"><span>—</span><span>□</span><span>×</span></div>
+    </header>
+
+    <main class="workspace">
+      <section class="hero" aria-labelledby="app-title">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 120 100" role="img">
+            <g fill="none" stroke="#0e3670" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <path fill="#eaf3ff" d="M67 17c17-5 31-3 37-1-1 17-8 31-23 43L62 74 47 59l15-20c2-8 3-14 5-22z"/>
+              <circle cx="80" cy="35" r="9" fill="#77b3ff"/>
+              <path fill="#4b97f3" d="M51 52 32 53 21 70l29-4m19 8 1 16 18-10-4-18"/>
+              <path fill="#9ed0ff" d="M36 65c-15 5-20 19-20 19s13-2 22-14"/>
+              <rect x="45" y="67" width="30" height="27" rx="4" fill="#fff"/>
+              <circle cx="53" cy="75" r="2" fill="#0e3670"/><circle cx="66" cy="86" r="2" fill="#0e3670"/><circle cx="53" cy="88" r="2" fill="#0e3670"/><circle cx="67" cy="75" r="2" fill="#0e3670"/>
+            </g>
+            <g fill="#ffb800"><circle cx="22" cy="25" r="3"/><circle cx="109" cy="34" r="3"/></g>
+          </svg>
+        </div>
+        <div class="title-wrap">
+          <span class="spark">⟶</span>
+          <h1 id="app-title">PROJECT RANDOMIZER</h1>
+          <span class="spark reverse">⟵</span>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <aside class="sidebar card" aria-label="Categorías y proyectos">
+          <section>
+            <h2 class="section-title"><span class="icon-box">◆</span>Categorías</h2>
+            <div id="categoryList" class="stack-list" role="listbox" aria-label="Lista de categorías"></div>
+
+            <label class="field-label" for="newCategory">Nueva categoría</label>
+            <input id="newCategory" class="text-input" type="text" maxlength="50" placeholder="Escribe el nombre de la categoría..." />
+            <button id="createCategoryBtn" class="button button-outline full"><span>⊕</span> Crear categoría</button>
+          </section>
+
+          <div class="divider"></div>
+
+          <section>
+            <h2 class="section-title"><span class="folder-icon">▱</span>Proyectos</h2>
+            <div id="projectList" class="stack-list project-list" role="listbox" aria-label="Lista de proyectos"></div>
+
+            <button id="focusNewProjectBtn" class="button button-outline full"><span>⊕</span> Agregar proyecto</button>
+            <button id="deleteProjectBtn" class="button button-danger full"><span>▣</span> Eliminar proyecto</button>
+          </section>
+
+          <div class="divider"></div>
+
+          <section class="new-project-form">
+            <label class="field-label" for="newProject">Nuevo proyecto</label>
+            <input id="newProject" class="text-input" type="text" maxlength="70" placeholder="Escribe el nombre del proyecto..." />
+            <label class="field-label" for="projectCategory">Categoría del proyecto</label>
+            <select id="projectCategory" class="select-input"></select>
+            <label class="field-label" for="projectMissions">Misiones iniciales <span class="optional">(opcional)</span></label>
+            <textarea id="projectMissions" class="text-input textarea" rows="3" placeholder="Una misión por línea..."></textarea>
+            <button id="addProjectBtn" class="button button-primary full compact">Guardar proyecto</button>
+          </section>
+        </aside>
+
+        <section class="main-panel card" aria-live="polite">
+          <div class="panel-heading">
+            <h2><span class="dice-icon">⚄</span>Selección aleatoria</h2>
+          </div>
+
+          <div class="category-control">
+            <div class="category-active-label">Categoría activa:
+              <span id="activeCategoryPill" class="pill">🎮 Videojuegos</span>
+            </div>
+            <label class="sr-only" for="categorySelect">Cambiar categoría activa</label>
+            <select id="categorySelect" class="compact-select" aria-label="Cambiar categoría activa"></select>
+          </div>
+
+          <div id="resultCard" class="result-card">
+            <div id="confetti" class="confetti" aria-hidden="true"></div>
+            <div class="trophy">🏆</div>
+            <p class="eyebrow">Categoría seleccionada:</p>
+            <p id="resultCategory" class="selected-category">Videojuegos</p>
+            <div class="separator"><span>★</span></div>
+            <p class="eyebrow">Proyecto seleccionado:</p>
+            <div class="project-result-wrap"><span class="burst">⟶</span><h3 id="resultProject">ContraDrivers</h3><span class="burst reverse">⟵</span></div>
+            <div class="separator"><span>★</span></div>
+            <p class="eyebrow">Misión seleccionada:</p>
+            <p id="resultMission" class="mission-result">Probar IA durante 3 vueltas</p>
+          </div>
+
+          <div class="actions-row">
+            <button id="randomProjectBtn" class="button button-primary button-hero"><span class="button-die">⚄</span> Elegir proyecto al azar</button>
+            <button id="randomMissionBtn" class="button button-secondary"><span>⟳</span> Otra misión</button>
+          </div>
+          <button id="changeCategoryBtn" class="button button-outline change-category"><span>◇</span> Cambiar categoría</button>
+
+          <div class="status-card">
+            <div class="db-icon">▤</div>
+            <div>
+              <strong>Memoria persistente activada</strong>
+              <p>Los proyectos y categorías se guardan automáticamente</p>
+            </div>
+            <div class="check">✓</div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
